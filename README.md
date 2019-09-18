@@ -1,3 +1,52 @@
+# Instalación Repositorio
+
+* En una consola, o gestor de repositorios, dirígete al directorio donde deseas clonar el repositorio
+* Una vez en ese directorio usa:
+```
+git clone https://github.com/vapaternina/PrimerLabCompiladores.git
+```
+* Crea un branch para trabajar con: 
+```
+git branch nombre_branch
+``` 
+```
+git checkout nombre_branch
+```
+o 
+```
+git checkout -b nombre_branch
+```
+## Otros:
+### Actualizar tu repositorio local
+* Si quieres actualizar a último commit (si clonaste el repositorio): 
+```
+git pull
+```
+### Subir commit a repositorio remoto (Github)
+* Para subir commit, haz el commit en tu rama:
+```
+git commit -m "Detalles del commit"
+```
+Entonces, verifica que tienes en la rama **master** los últimos cambios (pull) y estando en esta rama haz un merge con la rama donde trabajaste los nuevos cambios:
+
+```
+git checkout master
+```
+```
+git pull
+```
+```
+git merge nombre_rama_donde_trabajaste
+```
+Por último, haz un push. Si es la primera vez que haces uno (verifica que hiciste lo anterior) usa:
+```
+git push -u origin master
+```
+Si ya has usado ese comando para tu primer commit, puedes seguir usando:
+```
+git push origin master
+```
+
 # Primer Laboratorio Compiladores
 Construcción de Autómatas Finitos Determinísticos a través del método del Árbol Sintáctico.
 
