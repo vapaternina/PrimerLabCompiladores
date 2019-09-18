@@ -5,6 +5,8 @@
  */
 package primerlabcompiladores;
 
+import primerlaboratoriocompiladores.GUI.JFrameGUI;
+
 /**
  *
  * @author vycto
@@ -15,7 +17,8 @@ public class PrimerLabCompiladores {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        JFrameGUI jFrameGUI = new JFrameGUI();
+        jFrameGUI.setVisible(true);
     }
     
 }
