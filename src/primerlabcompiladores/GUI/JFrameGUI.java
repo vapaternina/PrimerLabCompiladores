@@ -55,7 +55,7 @@ public class JFrameGUI extends javax.swing.JFrame {
 
         jTextField1.setToolTipText("Ingrese expresión regular.");
 
-        jLabel4.setText("Nota 1.: Epsilon es el símbolo &.");
+        jLabel4.setText("Nota 1.: Épsilon es el símbolo &.");
 
         jLabel5.setText("Nota 2.: Defina las ER solamente con los símbolos |, *, + y ?.");
 

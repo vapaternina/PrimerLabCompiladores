@@ -99,7 +99,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nota 1.: Epsilon es el s&#xed;mbolo &amp;."/>
+        <Property name="text" type="java.lang.String" value="Nota 1.: &#xc9;psilon es el s&#xed;mbolo &amp;."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
