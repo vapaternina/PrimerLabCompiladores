@@ -5,7 +5,7 @@ Construcción de Autómatas Finitos Determinísticos a través del método del �
 ### Nota:
 En la pestaña "Projects", están organizados los detalles del laboratorio.
 
-# Instalación Repositorio
+# Instalación del repositorio
 
 * En una consola, o gestor de repositorios, dirígete al directorio donde deseas clonar el repositorio
 * Una vez en ese directorio usa:
