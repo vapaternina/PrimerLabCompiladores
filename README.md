@@ -1,3 +1,6 @@
+### Nota:
+En la pestaña "Projects", están organizados los detalles del laboratorio.
+
 # Instalación Repositorio
 
 * En una consola, o gestor de repositorios, dirígete al directorio donde deseas clonar el repositorio
