@@ -1,3 +1,7 @@
+# COMPILADORES
+## Primer Laboratorio
+Construcción de Autómatas Finitos Determinísticos a través del método del Árbol Sintáctico y reconocimiento de cadenas.
+
 ### Nota:
 En la pestaña "Projects", están organizados los detalles del laboratorio.
 
@@ -50,11 +54,6 @@ Si ya has usado ese comando para tu primer commit, puedes seguir usando:
 git push origin master
 ```
 
-# Primer Laboratorio Compiladores
-Construcción de Autómatas Finitos Determinísticos a través del método del Árbol Sintáctico.
-
-
-## COMPILADORES
 ### Primer Laboratorio
 ### Tema: 
 Autómatas Finitos
