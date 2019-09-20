@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package primerlaboratoriocompiladores.GUI;
+package primerlabcompiladores;
 
 import java.awt.List;
 import java.util.ArrayList;
