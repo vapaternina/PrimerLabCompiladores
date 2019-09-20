@@ -30,25 +30,20 @@ git pull
 ```
 git commit -m "Detalles del commit"
 ```
-Entonces, verifica que tienes en la rama **master** los últimos cambios (pull) y estando en esta rama haz un merge con la rama donde trabajaste los nuevos cambios:
-
-```
-git checkout master
-```
+Entonces, verifica que tienes en la rama **nombre_rama_donde_trabajaste** los últimos cambios (pull) y haz un push de la rama al repositorio remoto.
 ```
 git pull
 ```
-```
-git merge nombre_rama_donde_trabajaste
-```
 Por último, haz un push. Si es la primera vez que haces uno (verifica que hiciste lo anterior) usa:
 ```
-git push -u origin master
+git push -u nombre_rama_donde_trabajaste 
 ```
 Si ya has usado ese comando para tu primer commit, puedes seguir usando:
 ```
-git push origin master
+git push origin nombre_rama_donde_trabajaste
 ```
+
+Luego, desde GitHub haces un pull_request con los cambios en tu rama.
 
 # COMPILADORES
 ## Primer Laboratorio
