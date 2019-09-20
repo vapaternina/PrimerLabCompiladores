@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package primerlabcompiladores;
+package primerlabcompiladores.GUI;
 
 import java.awt.List;
 import java.util.ArrayList;
@@ -119,7 +119,6 @@ public class JFrameGUI extends javax.swing.JFrame {
         for(String caracter: alfabeto){
             System.out.println(caracter);
         }
-        System.out.println("Prueba para el repositorio");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
