@@ -82,7 +82,8 @@ Expresión Regular.
 Árbol Sintáctico
 
 Se deben definir las funciones para + y ?.
-Problema No. 2 (10%): Reconocimiento de cadena.
+
+### Problema No. 2 (10%): Reconocimiento de cadena.
 Entrada: Cadena a reconocer
 ### Salidas: 
 Si o No.
