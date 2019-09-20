@@ -1,6 +1,6 @@
 # COMPILADORES
 ## Primer Laboratorio
-Construcción de Autómatas Finitos Determinísticos a través del método del Árbol Sintáctico y reconocimiento de cadenas.
+Construcción de Autómatas Finitos Determinísticos a través del método de Árbol Sintáctico y reconocimiento de cadenas.
 
 ### Nota:
 En la pestaña "Projects", están organizados los detalles del laboratorio.
