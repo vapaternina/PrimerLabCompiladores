@@ -5,6 +5,8 @@
  */
 package primerlabcompiladores;
 
+import primerlabcompiladores.GUI.JFrameGUI;
+
 /**
  *
  * @author vycto
