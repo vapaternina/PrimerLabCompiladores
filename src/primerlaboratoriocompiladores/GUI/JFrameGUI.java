@@ -119,6 +119,7 @@ public class JFrameGUI extends javax.swing.JFrame {
         for(String caracter: alfabeto){
             System.out.println(caracter);
         }
+        System.out.println("Prueba para el repositorio");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
