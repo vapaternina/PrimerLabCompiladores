@@ -34,6 +34,10 @@ Entonces, verifica que tienes en la rama **nombre_rama_donde_trabajaste** los ú
 ```
 git pull
 ```
+Agrega todos los cambios de archivos (si se agregaron o eliminaron nuevos archivos al repositorio),
+```
+git add -A
+```
 Por último, haz un push. Si es la primera vez que haces uno (verifica que hiciste lo anterior) usa:
 ```
 git push -u nombre_rama_donde_trabajaste 
