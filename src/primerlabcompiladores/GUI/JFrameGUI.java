@@ -8,6 +8,9 @@ package primerlabcompiladores.GUI;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import primerlabcompiladores.Arbol;
+import primerlabcompiladores.Controlador;
+import primerlabcompiladores.Dibujo;
 
 /**
  *
@@ -21,6 +24,7 @@ public class JFrameGUI extends javax.swing.JFrame {
     public JFrameGUI() {
         initComponents();
         this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -40,6 +44,7 @@ public class JFrameGUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jInternalFrame1 = new javax.swing.JInternalFrame();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -67,15 +72,33 @@ public class JFrameGUI extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()), "Árbol de Análisis Sintáctico"));
 
+        jInternalFrame1.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 302, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 245, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jInternalFrame1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 285, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jInternalFrame1))
         );
 
         jButton2.setText("Primera Pos");
@@ -183,21 +206,28 @@ public class JFrameGUI extends javax.swing.JFrame {
         String expresionRegular = jTextField1.getText();
         String[] caracteresER = expresionRegular.split("");
         ArrayList<String> alfabeto = new ArrayList<>();
+        ArrayList<String> oper = new ArrayList<>();
         for (int i = 0; i < caracteresER.length; i++) {
             if (caracteresER[i].equals("(") || caracteresER[i].equals(")")
                     || caracteresER[i].equals("+") || caracteresER[i].equals("|")
                     || caracteresER[i].equals("*") || caracteresER[i].equals("?")) {
+                oper.add(caracteresER[i]);
                 continue;
             } else {
                 if (!alfabeto.contains(caracteresER[i])) {
                     alfabeto.add(caracteresER[i]);
+                    oper.add(caracteresER[i]);
+                } else {
+                    oper.add(caracteresER[i]);
                 }
             }
         }
+        System.out.println("E.R: " + expresionRegular);
         System.out.println("Alfabeto: ");
-        for(String caracter: alfabeto){
+        for (String caracter : alfabeto) {
             System.out.println(caracter);
         }
+        Arbol_Analisis_Sintactico(oper);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -244,7 +274,6 @@ public class JFrameGUI extends javax.swing.JFrame {
             public void run() {
                 JFrameGUI jfg = new JFrameGUI();
                 jfg.setVisible(true);
-                
             }
         });
     }
@@ -254,6 +283,7 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -263,4 +293,28 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private void Arbol_Analisis_Sintactico(ArrayList<String> oper) {
+        System.out.println("oper: " + oper);
+        System.out.println(oper.size());
+
+        /**
+         * Imprimiendo en orden ->
+         *
+         */
+        for (int i = 0; i < oper.size(); i++) {
+            System.out.println(oper.get(i));
+            if (oper.get(i).equals("(") || oper.get(i).equals(")")
+                    || oper.get(i).equals("+") || oper.get(i).equals("|")
+                    || oper.get(i).equals("*") || oper.get(i).equals("?")) {
+                //Crear Nodo Raiz.
+                /**
+                 * if (Raiz != null) reemplazar raiz con raiz nueva
+                 * else raiz = oper.get(i);
+                 */
+            } else {
+                //Crear nodo hijo          
+            }
+        }
+    }
 }
