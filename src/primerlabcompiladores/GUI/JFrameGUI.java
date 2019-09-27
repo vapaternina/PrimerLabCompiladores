@@ -8,9 +8,7 @@ package primerlabcompiladores.GUI;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import primerlabcompiladores.Arbol;
-import primerlabcompiladores.Controlador;
-import primerlabcompiladores.Dibujo;
+
 
 /**
  *
@@ -227,7 +225,7 @@ public class JFrameGUI extends javax.swing.JFrame {
         for (String caracter : alfabeto) {
             System.out.println(caracter);
         }
-        Arbol_Analisis_Sintactico(oper);
+        Arbol_Analisis_Sintactico(oper, alfabeto);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -294,27 +292,37 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void Arbol_Analisis_Sintactico(ArrayList<String> oper) {
+    private void Arbol_Analisis_Sintactico(ArrayList<String> oper, ArrayList<String> alfabeto) {
         System.out.println("oper: " + oper);
         System.out.println(oper.size());
-
         /**
-         * Imprimiendo en orden ->
+         * *
+         * Imprimiendo en orden...for (int i = 0; i < oper.size(); i++) {
+         * System.out.println(oper.get(i)); if (oper.get(i).equals("(") ||
+         * oper.get(i).equals(")") || oper.get(i).equals("+") ||
+         * oper.get(i).equals("|") || oper.get(i).equals("*") ||
+         * oper.get(i).equals("?")) { //Crear Nodo Raiz. /** if (Raiz != null)
+         * reemplazar raiz con raiz nueva else raiz = oper.get(i);
          *
+         * } else { //Crear nodo hijo } }
          */
-        for (int i = 0; i < oper.size(); i++) {
+        String temp1 = oper.get(0);
+        String temp2;
+        System.out.println(oper.get(0));
+        for (int i = 1; i < oper.size()-1; i++) {
             System.out.println(oper.get(i));
-            if (oper.get(i).equals("(") || oper.get(i).equals(")")
-                    || oper.get(i).equals("+") || oper.get(i).equals("|")
-                    || oper.get(i).equals("*") || oper.get(i).equals("?")) {
-                //Crear Nodo Raiz.
-                /**
-                 * if (Raiz != null) reemplazar raiz con raiz nueva
-                 * else raiz = oper.get(i);
-                 */
-            } else {
-                //Crear nodo hijo          
+            temp2 = oper.get(i);
+            
+            if (alfabeto.contains(temp1) && alfabeto.contains(temp2)) {
+                System.out.println("letras concatenadas.");
+            }else{
+                System.out.println("letra seguida de un operador");
             }
+             temp1 = oper.get(i);
+             temp2 = oper.get(i+1);
         }
+
     }
 }
+
+//https://eddmann.com/posts/shunting-yard-implementation-in-java/F
