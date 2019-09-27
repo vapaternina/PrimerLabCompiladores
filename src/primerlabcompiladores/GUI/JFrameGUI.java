@@ -9,7 +9,6 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 /**
  *
  * @author vycto
@@ -295,31 +294,47 @@ public class JFrameGUI extends javax.swing.JFrame {
     private void Arbol_Analisis_Sintactico(ArrayList<String> oper, ArrayList<String> alfabeto) {
         System.out.println("oper: " + oper);
         System.out.println(oper.size());
+        
         /**
          * *
-         * Imprimiendo en orden...for (int i = 0; i < oper.size(); i++) {
-         * System.out.println(oper.get(i)); if (oper.get(i).equals("(") ||
-         * oper.get(i).equals(")") || oper.get(i).equals("+") ||
-         * oper.get(i).equals("|") || oper.get(i).equals("*") ||
-         * oper.get(i).equals("?")) { //Crear Nodo Raiz. /** if (Raiz != null)
-         * reemplazar raiz con raiz nueva else raiz = oper.get(i);
+         * Imprimiendo en orden...
          *
-         * } else { //Crear nodo hijo } }
          */
+//        for (int j = 0; j < oper.size(); j++) {
+//            System.out.println(oper.get(j));
+//            if ((oper.get(j).equals("(") || oper.get(j).equals(")") ||
+//                 oper.get(j).equals("+") || oper.get(j)).equals("|") || 
+//                    oper.get(j).equals("*") || oper.get(j).equals("?")) { 
+//                    //Crear Nodo Raiz. 
+//                if (raiz != null) // reemplazar raiz con raiz nueva else raiz = oper.get(i);
+//                {
+//
+//                }
+//            } else {
+//                //Crear nodo hijo 
+//
+//            }
+
+
         String temp1 = oper.get(0);
         String temp2;
         System.out.println(oper.get(0));
-        for (int i = 1; i < oper.size()-1; i++) {
+        for (int i = 1; i < oper.size() - 1; i++) {
             System.out.println(oper.get(i));
             temp2 = oper.get(i);
-            
+
             if (alfabeto.contains(temp1) && alfabeto.contains(temp2)) {
                 System.out.println("letras concatenadas.");
-            }else{
+                /**
+                 * NodoIzq(temp1);
+                 * NodoDer(temp2);
+                 * NodoRaiz(concat, nodoizq, nododer);
+                 */
+            } else {
                 System.out.println("letra seguida de un operador");
             }
-             temp1 = oper.get(i);
-             temp2 = oper.get(i+1);
+            temp1 = oper.get(i);
+            temp2 = oper.get(i + 1);
         }
 
     }
