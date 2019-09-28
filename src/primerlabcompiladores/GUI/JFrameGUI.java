@@ -15,12 +15,12 @@ import java.util.Arrays;
  * @autor JpinzonM
  */
 public class JFrameGUI extends javax.swing.JFrame {
+
     ArrayList<String> alfabeto;
     ArrayList<String> oper;
     ArrayList<String> operFunc;
     String expresionRegular;
-    
-    
+
     /**
      * Creates new form JFrameGUI
      */
@@ -208,10 +208,9 @@ public class JFrameGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        expresionRegular = jTextField1.getText();
+    private void inicialArbolSintactico() {
         String[] caracteresER = expresionRegular.split("");
-        
+
         for (int i = 0; i < caracteresER.length; i++) {
             if (caracteresER[i].equals("(") || caracteresER[i].equals(")")
                     || caracteresER[i].equals("+") || caracteresER[i].equals("|")
@@ -226,17 +225,21 @@ public class JFrameGUI extends javax.swing.JFrame {
                 }
             }
         }
-        for(String elemento: oper){
-            if(!alfabeto.contains(elemento) && !"(".equals(elemento) && !")".equals(elemento)){
+        for (String elemento : oper) {
+            if (!alfabeto.contains(elemento) && !"(".equals(elemento) && !")".equals(elemento)) {
                 operFunc.add(elemento);
             }
         }
-        
+
         System.out.println("E.R: " + expresionRegular);
         System.out.println("Alfabeto: " + alfabeto);
         System.out.println("Operadores (operFunc): " + operFunc);
         System.out.println("Oper:" + oper);
-        arbolAnalisisSintactico();
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        expresionRegular = jTextField1.getText();
+        inicialArbolSintactico();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -303,13 +306,13 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void arbolAnalisisSintactico(){
+    private void arbolAnalisisSintactico() {
         //abcd(ef)*ba+(a|b)?
         for (int i = oper.size() - 1; i > -1; i--) {
-            
+
         }
     }
-    
+
     private void Arbol_Analisis_Sintactico(ArrayList<String> oper, ArrayList<String> alfabeto) {
         System.out.println("oper: " + oper);
         System.out.println(oper.size());
@@ -323,9 +326,8 @@ public class JFrameGUI extends javax.swing.JFrame {
                 System.out.println(temp1);
                 System.out.println(temp2);
                 /**
-                 * NodoIzq(temp1);
-                 * NodoDer(temp2);
-                 * NodoRaiz(concat, nodoizq, nododer);
+                 * NodoIzq(temp1); NodoDer(temp2); NodoRaiz(concat, nodoizq,
+                 * nododer);
                  */
             } else {
                 System.out.println("letra seguida de un operador");
