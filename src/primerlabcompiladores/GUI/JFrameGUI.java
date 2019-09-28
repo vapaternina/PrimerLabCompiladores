@@ -227,7 +227,7 @@ public class JFrameGUI extends javax.swing.JFrame {
             }
         }
         for(String elemento: oper){
-            if(!alfabeto.contains(elemento)){
+            if(!alfabeto.contains(elemento) && !"(".equals(elemento) && !")".equals(elemento)){
                 operFunc.add(elemento);
             }
         }
