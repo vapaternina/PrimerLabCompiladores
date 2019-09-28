@@ -12,6 +12,7 @@ import java.util.Arrays;
 /**
  *
  * @author vycto
+ * @author JpinzonM
  */
 public class JFrameGUI extends javax.swing.JFrame {
 
@@ -295,43 +296,21 @@ public class JFrameGUI extends javax.swing.JFrame {
         System.out.println("oper: " + oper);
         System.out.println(oper.size());
         
-        /**
-         * *
-         * Imprimiendo en orden...
-         *
-         */
-//        for (int j = 0; j < oper.size(); j++) {
-//            System.out.println(oper.get(j));
-//            if ((oper.get(j).equals("(") || oper.get(j).equals(")") ||
-//                 oper.get(j).equals("+") || oper.get(j)).equals("|") || 
-//                    oper.get(j).equals("*") || oper.get(j).equals("?")) { 
-//                    //Crear Nodo Raiz. 
-//                if (raiz != null) // reemplazar raiz con raiz nueva else raiz = oper.get(i);
-//                {
-//
-//                }
-//            } else {
-//                //Crear nodo hijo 
-//
-//            }
-
-
         String temp1 = oper.get(0);
         String temp2;
-        System.out.println(oper.get(0));
+
         for (int i = 1; i < oper.size() - 1; i++) {
-            System.out.println(oper.get(i));
+
             temp2 = oper.get(i);
 
             if (alfabeto.contains(temp1) && alfabeto.contains(temp2)) {
                 System.out.println("letras concatenadas.");
-                /**
-                 * NodoIzq(temp1);
-                 * NodoDer(temp2);
-                 * NodoRaiz(concat, nodoizq, nododer);
-                 */
+                System.out.println(temp1);
+                System.out.println(temp2);
             } else {
                 System.out.println("letra seguida de un operador");
+                System.out.println(temp1);
+                System.out.println(temp2);
             }
             temp1 = oper.get(i);
             temp2 = oper.get(i + 1);
@@ -340,4 +319,3 @@ public class JFrameGUI extends javax.swing.JFrame {
     }
 }
 
-//https://eddmann.com/posts/shunting-yard-implementation-in-java/F
