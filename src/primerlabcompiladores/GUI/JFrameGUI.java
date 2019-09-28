@@ -15,14 +15,22 @@ import java.util.Arrays;
  * @autor JpinzonM
  */
 public class JFrameGUI extends javax.swing.JFrame {
-
+    ArrayList<String> alfabeto;
+    ArrayList<String> oper;
+    ArrayList<String> operFunc;
+    String expresionRegular;
+    
+    
     /**
      * Creates new form JFrameGUI
      */
     public JFrameGUI() {
+        operFunc = new ArrayList<>();
+        oper = new ArrayList<>();
+        expresionRegular = "";
+        alfabeto = new ArrayList<>();
         initComponents();
         this.setLocationRelativeTo(null);
-
     }
 
     /**
@@ -201,16 +209,14 @@ public class JFrameGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String expresionRegular = jTextField1.getText();
+        expresionRegular = jTextField1.getText();
         String[] caracteresER = expresionRegular.split("");
-        ArrayList<String> alfabeto = new ArrayList<>();
-        ArrayList<String> oper = new ArrayList<>();
+        
         for (int i = 0; i < caracteresER.length; i++) {
             if (caracteresER[i].equals("(") || caracteresER[i].equals(")")
                     || caracteresER[i].equals("+") || caracteresER[i].equals("|")
                     || caracteresER[i].equals("*") || caracteresER[i].equals("?")) {
                 oper.add(caracteresER[i]);
-                continue;
             } else {
                 if (!alfabeto.contains(caracteresER[i])) {
                     alfabeto.add(caracteresER[i]);
@@ -220,12 +226,17 @@ public class JFrameGUI extends javax.swing.JFrame {
                 }
             }
         }
-        System.out.println("E.R: " + expresionRegular);
-        System.out.println("Alfabeto: ");
-        for (String caracter : alfabeto) {
-            System.out.println(caracter);
+        for(String elemento: oper){
+            if(!alfabeto.contains(elemento)){
+                operFunc.add(elemento);
+            }
         }
-        Arbol_Analisis_Sintactico(oper, alfabeto);
+        
+        System.out.println("E.R: " + expresionRegular);
+        System.out.println("Alfabeto: " + alfabeto);
+        System.out.println("Operadores (operFunc): " + operFunc);
+        System.out.println("Oper:" + oper);
+        arbolAnalisisSintactico();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -292,6 +303,13 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
+    private void arbolAnalisisSintactico(){
+        //abcd(ef)*ba+(a|b)?
+        for (int i = oper.size() - 1; i > -1; i--) {
+            
+        }
+    }
+    
     private void Arbol_Analisis_Sintactico(ArrayList<String> oper, ArrayList<String> alfabeto) {
         System.out.println("oper: " + oper);
         System.out.println(oper.size());
@@ -300,7 +318,6 @@ public class JFrameGUI extends javax.swing.JFrame {
         String temp2;
         for (int i = 1; i < oper.size() - 1; i++) {
             temp2 = oper.get(i);
-
             if (alfabeto.contains(temp1) && alfabeto.contains(temp2)) {
                 System.out.println("letras concatenadas.");
                 System.out.println(temp1);
@@ -318,6 +335,5 @@ public class JFrameGUI extends javax.swing.JFrame {
             temp1 = oper.get(i);
             temp2 = oper.get(i + 1);
         }
-
     }
 }

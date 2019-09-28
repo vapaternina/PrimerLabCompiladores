@@ -21,9 +21,6 @@ public class PrimerLabCompiladores {
         JFrameGUI jFrameGUI = new JFrameGUI();
         jFrameGUI.setLocationRelativeTo(null);
         jFrameGUI.setVisible(true);
-        
-        System.out.println("probando");
-        
     }
     
 }
