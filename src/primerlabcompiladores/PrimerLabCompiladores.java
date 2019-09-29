@@ -10,6 +10,7 @@ import primerlabcompiladores.GUI.JFrameGUI;
 /**
  *
  * @author vycto
+ * @author JpinzonM
  */
 public class PrimerLabCompiladores {
 
