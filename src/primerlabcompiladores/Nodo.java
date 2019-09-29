@@ -8,52 +8,47 @@ package primerlabcompiladores;
 /**
  *
  * @author jpinzonm
+ * @param <T>
  */
-public class Nodo {
+public class Nodo <T> {
+    private T elemento; 
+    private Nodo izquierda, derecha; 
 
-    /* Declaraciones de variables */
-    private int valor;
-
-    private Nodo padre;
-    private Nodo hojaIzquierda;
-    private Nodo hojaDerecha;
-
-    /* Constructor */
-    public Nodo(int valor) {
-        this.valor = valor;
+    public Nodo(T elemento) {
+        this.elemento = elemento;
     }
 
-    /* Setters y Getters */
-    public void setValor(int valor) {
-        this.valor = valor;
+    public T getElemento() {
+        return elemento;
     }
 
-    public int getValor() {
-        return valor;
+    public Nodo getIzquierda() {
+        return izquierda;
     }
 
-    public Nodo getPadre() {
-        return padre;
+    public Nodo getDerecha() {
+        return derecha;
+    }
+    
+    public Nodo insertar(Nodo n, T elemento){
+        if (n == null) {
+            return new Nodo(elemento);
+        }else if (elemento.hashCode() < n.elemento.hashCode()) {
+            n.izquierda = insertar(n.izquierda, elemento);
+        }else if (elemento.hashCode() > n.elemento.hashCode()) {
+            n.derecha = insertar(n.derecha, elemento);
+        }
+        return n; 
     }
 
-    public void setPadre(Nodo padre) {
-        this.padre = padre;
+    public int nodosCompletos(Nodo n) {
+        if (n == null) {
+            return 0;
+        }else {
+            if (n.izquierda != null && n.derecha != null) {
+                return nodosCompletos(n.izquierda) + nodosCompletos(n.derecha) + 1;
+            }
+            return nodosCompletos(n.izquierda) + nodosCompletos(n.derecha);
+        }
     }
-
-    public Nodo getHojaIzquierda() {
-        return hojaIzquierda;
-    }
-
-    public void setHojaIzquierda(Nodo hojaIzquierda) {
-        this.hojaIzquierda = hojaIzquierda;
-    }
-
-    public Nodo getHojaDerecha() {
-        return hojaDerecha;
-    }
-
-    public void setHojaDerecha(Nodo hojaDerecha) {
-        this.hojaDerecha = hojaDerecha;
-    }
-
 }
