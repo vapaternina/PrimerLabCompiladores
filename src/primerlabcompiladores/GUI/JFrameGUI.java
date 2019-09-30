@@ -8,6 +8,8 @@ package primerlabcompiladores.GUI;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import primerlabcompiladores.ArbolSintactico;
+import primerlabcompiladores.Nodo;
 
 /**
  *
@@ -20,6 +22,7 @@ public class JFrameGUI extends javax.swing.JFrame {
     ArrayList<String> oper;
     ArrayList<String> operFunc;
     String expresionRegular;
+    ArbolSintactico arbolSintactico;
 
     /**
      * Creates new form JFrameGUI
@@ -240,8 +243,58 @@ public class JFrameGUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         expresionRegular = jTextField1.getText();
         inicialArbolSintactico();
+        ArbolSintactico arbolSintactico = new ArbolSintactico(oper);
+        String[] exp = expresionRegular.split("");
+        for (int i = exp.length - 1; i >= 0; i--) {
+            if (!esOperOParent(exp[i]) && !alfabeto.contains(exp[i])) {
+                alfabeto.add(exp[i]);
+            }
+        }
+        iniciarArbol(exp);
+        imprimirPost(this.arbolSintactico.getRaiz());
+        
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    private boolean esOperOParent(String str) {
+        return str.equals("&") | str.equals("|") | str.equals("*") | str.equals("+") | str.equals("?")
+                || str.equals("(") || str.equals(")") || str.equals(".");
+    }
+    
+    private void iniciarArbol(String[] exp) {
+        ArrayList expresion = addConcatenacion(exp);
+        System.out.println(expresion.toString());
+        arbolSintactico = new ArbolSintactico(expresion);
+    }
+    
+    private void imprimirPost(Nodo reco) {
+        if (reco != null) {
+            imprimirPost(reco.getIzq());
+            imprimirPost(reco.getDer());
+            System.out.print(reco.getDato() + " ");
+        }
+    }
+    
+    ArrayList simbPuedenPrecederConcat = new ArrayList();
+    
+    private ArrayList addConcatenacion(String[] exp) {
+        alfabeto.add("&");
+        simbPuedenPrecederConcat.add("*"); 
+        simbPuedenPrecederConcat.add("+"); 
+        simbPuedenPrecederConcat.add(")"); 
+        simbPuedenPrecederConcat.add("?");
+        ArrayList str = new ArrayList();
+        for (int i = 0; i < exp.length-1; i++) {
+            str.add(exp[i]);
+            if (!exp[i].equals("(") && !exp[i].equals("|")) {
+                if ((simbPuedenPrecederConcat.contains(exp[i]) && (alfabeto.contains(exp[i+1]) || exp[i+1].equals("("))) || 
+                        (alfabeto.contains(exp[i]) && alfabeto.contains(exp[i+1]))) {
+                    str.add(".");
+                }
+            }
+        }
+        str.add(exp[exp.length-1]);
+        str.add("."); str.add("#");
+        return str;
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         PrimeraPosFrame pp = new PrimeraPosFrame();
         pp.setVisible(true);
@@ -306,12 +359,6 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void arbolAnalisisSintactico() {
-        //abcd(ef)*ba+(a|b)?
-        for (int i = oper.size() - 1; i > -1; i--) {
-
-        }
-    }
 
     private void Arbol_Analisis_Sintactico(ArrayList<String> oper, ArrayList<String> alfabeto) {
         System.out.println("oper: " + oper);
