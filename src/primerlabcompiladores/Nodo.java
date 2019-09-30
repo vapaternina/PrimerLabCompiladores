@@ -37,4 +37,16 @@ public class Nodo {
     public void setDer(Nodo der) {
         this.der = der;
     } 
+    
+     public int nodosCompletos(Nodo n) {
+        if (n == null) {
+            return 0;
+        }else {
+            if (n.izq != null && n.der != null) {
+                return nodosCompletos(n.izq) + nodosCompletos(n.der) + 1;
+            }
+            return nodosCompletos(n.izq) + nodosCompletos(n.der);
+        }
+    }
+     
 }
