@@ -19,6 +19,7 @@ import primerlabcompiladores.Arbol;
 public class JFrameGUI extends javax.swing.JFrame {
 
     ArrayList<String> alfabeto = new ArrayList<>();
+    ArrayList<String> cadena = new ArrayList<>();
     ArrayList<String> oper = new ArrayList<>();
 
     /**
@@ -167,15 +168,16 @@ public class JFrameGUI extends javax.swing.JFrame {
         for (int i = 0; i < caracteresER.length; i++) {
             if (caracteresER[i].equals("(") || caracteresER[i].equals(")")
                     || caracteresER[i].equals("+") || caracteresER[i].equals("|")
-                    || caracteresER[i].equals("*") || caracteresER[i].equals("?")) {
+                    || caracteresER[i].equals("*") || caracteresER[i].equals("?") || caracteresER[i].equals("·")) {
                 oper.add(caracteresER[i]);
+                cadena.add(caracteresER[i]);
                 continue;
             } else {
                 if (!alfabeto.contains(caracteresER[i])) {
                     alfabeto.add(caracteresER[i]);
-                    oper.add(caracteresER[i]);
+                    cadena.add(caracteresER[i]);
                 } else {
-                    oper.add(caracteresER[i]);
+                    cadena.add(caracteresER[i]);
                 }
             }
         }
@@ -184,7 +186,7 @@ public class JFrameGUI extends javax.swing.JFrame {
         for (String caracter : alfabeto) {
             System.out.println(caracter);
         }
-        Arbol_Analisis_Sintactico(oper, alfabeto);
+        Arbol_Analisis_Sintactico(cadena, oper, alfabeto);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -269,36 +271,58 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void Arbol_Analisis_Sintactico(ArrayList<String> oper, ArrayList<String> alfabeto) {
+    private void Arbol_Analisis_Sintactico(ArrayList<String> cadena, ArrayList<String> oper, ArrayList<String> alfabeto) {
+        ArrayList<String> tempC = new ArrayList<>();
+        System.out.println("cadena: " + cadena);
+        System.out.println(cadena.size());
         System.out.println("oper: " + oper);
         System.out.println(oper.size());
 
-        String temp1 = oper.get(0);
+        String temp1 = cadena.get(0);
         String temp2;
-        System.out.println(oper.get(0));
-        for (int i = 1; i < oper.size()-1; i++) {
-            System.out.println(oper.get(i));
-            temp2 = oper.get(i);
+        temp2 = cadena.get(1);
+        System.out.println(cadena.get(0));
+        for (int i = 0; i < cadena.size() - 1; i++) {
+            
 
             if (alfabeto.contains(temp1) && alfabeto.contains(temp2)) {
                 System.out.println("letras concatenadas.");
-                /**
-                 * NodoIzq(temp1); NodoDer(temp2); NodoRaiz(concat, nodoizq,
-                 * nododer);
-                 */
+                System.out.println(temp1);
+                System.out.println(temp2);
+                int x = i + 1;
+                for (int j = x; j <= cadena.size()-1; j++) {
+                    tempC.add(cadena.get(j).toString());
+                }
+                
+                cadena.set(x, "·");
+
+                for (int j = 0; j <= tempC.size()-1; j++) {
+                    cadena.add(x+1-j, tempC.get(j));
+                }
+                
+                System.out.println("cadena: " + cadena);
+
             } else {
                 System.out.println("letra seguida de un operador");
+                System.out.println(temp1);
+                System.out.println(temp2);
             }
-            temp1 = oper.get(i);
-            temp2 = oper.get(i + 1);
+            temp1 = cadena.get(i+1);
+            temp2 = cadena.get(i+2);
+            System.out.println("temp1: " + temp1);
+            System.out.println("temp2: " + temp2);
         }
 
     }
 
     private void DibujarArbol(Arbol objArbol, ArrayList<String> oper) {
-        for (int i = 0; i < oper.size()-1; i++) {
-            objArbol.Insertar(oper.get(i).toString());
+//        for (int i = 0; i < oper.size()-1; i++) {
+//            objArbol.Insertar(oper.get(i).toString());
+//        }
+        for (int i = 0; i < oper.size(); i++) {
+
         }
+
     }
 }
 
