@@ -213,11 +213,6 @@ public class JFrameGUI extends javax.swing.JFrame {
         primeraPos(raiz);
         ultimaPos(raiz);
         imprimirPost(raiz);
-        sgtePos(raiz);
-        System.out.println("SgtePos");
-        sgtePosT.forEach((x) -> {
-            System.out.println(x);
-        });
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void iniciarArbol(String[] exp) {
