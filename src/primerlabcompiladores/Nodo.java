@@ -12,6 +12,10 @@ public class Nodo {
         der = null;
     }
 
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
     public String getDato() {
         return dato;
     }

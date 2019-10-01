@@ -205,11 +205,12 @@ public class JFrameGUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         expresionRegular = jTextField1.getText();
         inicialArbolSintactico();
-        ArbolSintactico arbolSintactico = new ArbolSintactico(oper);
         String[] exp = expresionRegular.split("");
         iniciarArbol(exp);
-        System.out.println("PostOrden");
-        imprimirPost(this.arbolSintactico.getRaiz());
+        Nodo raiz = arbolSintactico.getRaiz();
+        primeraPosAlf(raiz, 0);
+        primeraPos(raiz);
+        imprimirPost(raiz);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void iniciarArbol(String[] exp) {
@@ -221,7 +222,7 @@ public class JFrameGUI extends javax.swing.JFrame {
         if (reco != null) {
             imprimirPost(reco.getIzq());
             imprimirPost(reco.getDer());
-            System.out.print(reco.getDato() + " ");
+            System.out.print(reco.getPos()+ " ");
         }
     }
 
@@ -245,6 +246,7 @@ public class JFrameGUI extends javax.swing.JFrame {
         str.add(exp[exp.length - 1]);
         str.add(".");
         str.add("#");
+        System.out.println(str);
         return str;
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -269,11 +271,6 @@ public class JFrameGUI extends javax.swing.JFrame {
         JScrollPane jScrollPane = new JScrollPane(objDP, 
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        
-        /*JInternalFrame jInternalFrame = new JInternalFrame("Árbol de análisis sintáctico", true, true, true);
-        jInternalFrame.getContentPane().add(jScrollPane);
-        jInternalFrame.setSize(600, 600);
-        jInternalFrame.setVisible(true);*/
 
         JFrame ventana = new JFrame();
         ventana.getContentPane().add(jScrollPane);
@@ -334,9 +331,38 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-//    private void DibujarArbol(ArbolSintactico objArbol, ArrayList<String> cadena) {
-//        for (int i = 0; i < cadena.size(); i++) {
-//            objArbol.Insertar(cadena.get(i).toString());
-//        }
-//    }
+    private void primeraPos(Nodo r) {
+        String dato = r.getDato();
+        if(r.getDer() != null){
+            primeraPos(r.getDer());
+        }
+        if(r.getIzq() != null){
+            primeraPos(r.getIzq());
+        }
+        switch(dato){
+            case "*":{
+                break;
+            }
+            case "+":{ //Cerradura positiva, pPos = el único hijo que tiene.
+                break;
+            }
+            case "?":{ //Opcional, pPos = el único hijo que tiene.
+                break;
+            }
+            case "|":{
+                break;
+            }
+        }
+    }
+
+    private void primeraPosAlf(Nodo r, int pos) {
+        if(r != null){
+            primeraPosAlf(r.getIzq(), pos);
+            primeraPosAlf(r.getDer(), pos);
+            if(alfabeto.contains(r.getDato())){
+                r.setPos(pos++);
+            }
+        }
+    }
+    
 }
