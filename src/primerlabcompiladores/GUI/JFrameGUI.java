@@ -5,11 +5,15 @@
  */
 package primerlabcompiladores.GUI;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import primerlabcompiladores.ArbolSintactico;
 import primerlabcompiladores.Nodo;
 
@@ -203,25 +207,16 @@ public class JFrameGUI extends javax.swing.JFrame {
         inicialArbolSintactico();
         ArbolSintactico arbolSintactico = new ArbolSintactico(oper);
         String[] exp = expresionRegular.split("");
-        for (int i = exp.length - 1; i >= 0; i--) {
-            if (!esOperOParent(exp[i]) && !alfabeto.contains(exp[i])) {
-                alfabeto.add(exp[i]);
-            }
-        }
         iniciarArbol(exp);
+        System.out.println("PostOrden");
         imprimirPost(this.arbolSintactico.getRaiz());
     }//GEN-LAST:event_jButton1ActionPerformed
-    private boolean esOperOParent(String str) {
-        return str.equals("&") | str.equals("|") | str.equals("*") | str.equals("+") | str.equals("?")
-                || str.equals("(") || str.equals(")") || str.equals(".");
-    }
-    
+
     private void iniciarArbol(String[] exp) {
         ArrayList expresion = addConcatenacion(exp);
-        System.out.println(expresion.toString());
         arbolSintactico = new ArbolSintactico(expresion);
     }
-    
+
     private void imprimirPost(Nodo reco) {
         if (reco != null) {
             imprimirPost(reco.getIzq());
@@ -229,27 +224,27 @@ public class JFrameGUI extends javax.swing.JFrame {
             System.out.print(reco.getDato() + " ");
         }
     }
-    
+
     ArrayList simbPuedenPrecederConcat = new ArrayList();
-    
+
     private ArrayList addConcatenacion(String[] exp) {
         alfabeto.add("&");
-        simbPuedenPrecederConcat.add("*"); 
-        simbPuedenPrecederConcat.add("+"); 
-        simbPuedenPrecederConcat.add(")"); 
+        simbPuedenPrecederConcat.add("*");
+        simbPuedenPrecederConcat.add("+");
+        simbPuedenPrecederConcat.add(")");
         simbPuedenPrecederConcat.add("?");
         ArrayList str = new ArrayList();
-        for (int i = 0; i < exp.length-1; i++) {
+        for (int i = 0; i < exp.length - 1; i++) {
             str.add(exp[i]);
             if (!exp[i].equals("(") && !exp[i].equals("|")) {
-                if ((simbPuedenPrecederConcat.contains(exp[i]) && (alfabeto.contains(exp[i+1]) || exp[i+1].equals("("))) || 
-                        (alfabeto.contains(exp[i]) && alfabeto.contains(exp[i+1]))) {
+                if (((simbPuedenPrecederConcat.contains(exp[i]) || alfabeto.contains(exp[i])) && (alfabeto.contains(exp[i + 1]) || exp[i + 1].equals("(")))) {
                     str.add(".");
                 }
             }
         }
-        str.add(exp[exp.length-1]);
-        str.add("."); str.add("#");
+        str.add(exp[exp.length - 1]);
+        str.add(".");
+        str.add("#");
         return str;
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -269,15 +264,22 @@ public class JFrameGUI extends javax.swing.JFrame {
         DrawPanel objDP = new DrawPanel();
         TreeController objController = new TreeController(arbolSintactico, objDP);
         objController.start();
+
+        //JPanel panel = new JPanel(new BorderLayout());
+        JScrollPane jScrollPane = new JScrollPane(objDP, 
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         
-        JInternalFrame ji = new JInternalFrame();
-        ji.add(objDP);
-        ji.setTitle("Árbol de análisis sintáctico");
-        ji.setVisible(true);
+        /*JInternalFrame jInternalFrame = new JInternalFrame("Árbol de análisis sintáctico", true, true, true);
+        jInternalFrame.getContentPane().add(jScrollPane);
+        jInternalFrame.setSize(600, 600);
+        jInternalFrame.setVisible(true);*/
+
         JFrame ventana = new JFrame();
-        ventana.getContentPane().add(ji);
-        ventana.setDefaultCloseOperation(1);
+        ventana.getContentPane().add(jScrollPane);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventana.setSize(600, 600);
+
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton5ActionPerformed

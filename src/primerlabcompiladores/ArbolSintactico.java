@@ -41,7 +41,8 @@ public class ArbolSintactico {
                 temp.addAll(exp.subList(0, i));
                 temp.add(p.toString());
                 temp.addAll(exp.subList(cierra + 1, exp.size()));
-                exp = temp;
+                exp = new ArrayList();
+                exp.addAll(temp);
                 return generarArbolSintactico(p);
             }
         }
