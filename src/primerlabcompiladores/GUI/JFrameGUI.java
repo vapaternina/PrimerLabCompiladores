@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import primerlabcompiladores.ArbolSintactico;
 import primerlabcompiladores.Nodo;
 
@@ -253,6 +254,7 @@ public class JFrameGUI extends javax.swing.JFrame {
             imprimirPost(reco.getIzq());
             imprimirPost(reco.getDer());
             System.out.print(reco.getDato() + " ");
+            
         }
     }
 
@@ -279,13 +281,33 @@ public class JFrameGUI extends javax.swing.JFrame {
         return str;
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PrimeraPosFrame pp = new PrimeraPosFrame();
-        pp.setVisible(true);
-        pp.setLocationRelativeTo(null);
+        JFrame PrimeraPos = new JFrame("Primera Pos");
+        JTable tablepos = new JTable();
+        String[] nodes = new String[ cadena.size()];
+        for (int i = 0; i < cadena.size()-1; i++) {
+            nodes[i]=cadena.get(i);
+        }
+        System.out.println("");
+        for (int i = 0; i < nodes.length; i++) {
+            System.out.println(nodes[i]);
+        }
+        
+        
+        
+        
+        tablepos.setVisible(true);
+        PrimeraPos.add(tablepos);
+        PrimeraPos.setSize(600, 600);
+        PrimeraPos.setVisible(true);
+        PrimeraPos.setLocationRelativeTo(null); 
+//        PrimeraPosFrame pp = new PrimeraPosFrame();
+//        pp.setVisible(true);
+//        pp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         UltimaPosFrame up = new UltimaPosFrame();
+        
         up.setVisible(true);
         up.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton3ActionPerformed
