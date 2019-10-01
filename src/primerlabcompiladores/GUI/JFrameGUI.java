@@ -208,22 +208,21 @@ public class JFrameGUI extends javax.swing.JFrame {
         String[] exp = expresionRegular.split("");
         iniciarArbol(exp);
         Nodo raiz = arbolSintactico.getRaiz();
-        primeraPosAlf(raiz, 0);
+        primUltPosAnulAlfabeto(raiz);
+        anulable(raiz);
         primeraPos(raiz);
+        ultimaPos(raiz);
         imprimirPost(raiz);
+        sgtePos(raiz);
+        System.out.println("SgtePos");
+        sgtePosT.forEach((x) -> {
+            System.out.println(x);
+        });
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void iniciarArbol(String[] exp) {
         ArrayList expresion = addConcatenacion(exp);
         arbolSintactico = new ArbolSintactico(expresion);
-    }
-
-    private void imprimirPost(Nodo reco) {
-        if (reco != null) {
-            imprimirPost(reco.getIzq());
-            imprimirPost(reco.getDer());
-            System.out.print(reco.getPos()+ " ");
-        }
     }
 
     ArrayList simbPuedenPrecederConcat = new ArrayList();
@@ -268,8 +267,8 @@ public class JFrameGUI extends javax.swing.JFrame {
         objController.start();
 
         //JPanel panel = new JPanel(new BorderLayout());
-        JScrollPane jScrollPane = new JScrollPane(objDP, 
-                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+        JScrollPane jScrollPane = new JScrollPane(objDP,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         JFrame ventana = new JFrame();
@@ -331,38 +330,218 @@ public class JFrameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void primeraPos(Nodo r) {
+    private void anulable(Nodo r) {
         String dato = r.getDato();
-        if(r.getDer() != null){
-            primeraPos(r.getDer());
+
+        if (r.getDer() != null) {
+            anulable(r.getDer());
         }
-        if(r.getIzq() != null){
-            primeraPos(r.getIzq());
+        if (r.getIzq() != null) {
+            anulable(r.getIzq());
         }
-        switch(dato){
-            case "*":{
+
+        switch (dato) {
+            case "*": {
+                r.anulable = true;
                 break;
             }
-            case "+":{ //Cerradura positiva, pPos = el único hijo que tiene.
+            case "?": {
+                r.anulable = true;
                 break;
             }
-            case "?":{ //Opcional, pPos = el único hijo que tiene.
+            case "+": {
+                r.anulable = false;
                 break;
             }
-            case "|":{
+            case "|": { //C1 = Izq - C2 = Der
+                r.anulable = r.getIzq().anulable || r.getDer().anulable;
+                break;
+            }
+            case ".": {
+                r.anulable = r.getIzq().anulable && r.getDer().anulable;
+                break;
+            }
+            case "&": {
+                r.anulable = true;
                 break;
             }
         }
     }
 
-    private void primeraPosAlf(Nodo r, int pos) {
-        if(r != null){
-            primeraPosAlf(r.getIzq(), pos);
-            primeraPosAlf(r.getDer(), pos);
-            if(alfabeto.contains(r.getDato())){
-                r.setPos(pos++);
+    private void ultimaPos(Nodo r) {
+        String dato = r.getDato();
+        if (r.getIzq() != null) {
+            ultimaPos(r.getIzq());
+        }
+        if (r.getDer() != null) {
+            ultimaPos(r.getDer());
+        }
+
+        switch (dato) {
+            case "*": { //Cerradura de Kleene, pPos = el único hijo que tiene.
+                r.setUltimaPos(r.getIzq().getUltimaPos());
+                break;
+            }
+            case "+": { //Cerradura positiva, pPos = el único hijo que tiene.
+                r.setUltimaPos(r.getIzq().getUltimaPos());
+                break;
+            }
+            case "?": { //Opcional, pPos = el único hijo que tiene.
+                r.setUltimaPos(r.getIzq().getUltimaPos());
+                break;
+            }
+            case "|": { //
+                ArrayList<Integer> aux = new ArrayList<>();
+                aux.addAll(r.getIzq().getUltimaPos());
+                aux.addAll(r.getDer().getUltimaPos());
+                r.setUltimaPos(aux);
+                break;
+            }
+            case ".": { //Concatenacion
+                if (r.getIzq().anulable) {
+                    ArrayList<Integer> aux = new ArrayList<>();
+                    aux.addAll(r.getIzq().getUltimaPos());
+                    aux.addAll(r.getDer().getUltimaPos());
+                    r.setUltimaPos(aux);
+                } else {
+                    r.setUltimaPos(r.getDer().getUltimaPos());
+                }
+                break;
+            }
+        }
+
+    }
+
+    private void primeraPos(Nodo r) {
+        String dato = r.getDato();
+        if (r.getIzq() != null) {
+            primeraPos(r.getIzq());
+        }
+        if (r.getDer() != null) {
+            primeraPos(r.getDer());
+        }
+
+        switch (dato) {
+            case "*": { //Cerradura de Kleene, pPos = el único hijo que tiene.
+                r.setPrimeraPos(r.getIzq().getPrimeraPos());
+                break;
+            }
+            case "+": { //Cerradura positiva, pPos = el único hijo que tiene.
+                r.setPrimeraPos(r.getIzq().getPrimeraPos());
+                break;
+            }
+            case "?": { //Opcional, pPos = el único hijo que tiene.
+                r.setPrimeraPos(r.getIzq().getPrimeraPos());
+                break;
+            }
+            case "|": { //
+                ArrayList<Integer> aux = new ArrayList<>();
+                aux.addAll(r.getIzq().getPrimeraPos());
+                aux.addAll(r.getDer().getPrimeraPos());
+                r.setPrimeraPos(aux);
+                break;
+            }
+            case ".": { //Concatenacion
+                if (r.getIzq().anulable) {
+                    ArrayList<Integer> aux = new ArrayList<>();
+                    aux.addAll(r.getIzq().getPrimeraPos());
+                    aux.addAll(r.getDer().getPrimeraPos());
+                    r.setPrimeraPos(aux);
+                } else {
+                    r.setPrimeraPos(r.getIzq().getPrimeraPos());
+                }
+                break;
+            }
+        }
+
+    }
+
+    ArrayList[] next;
+    
+    private void sgtPos(Nodo raiz){
+        String dato = raiz.getDato();
+        if (raiz.getIzq() != null) {
+            sgtPos(raiz.getIzq());
+        }
+        if (raiz.getDer() != null) {
+            sgtPos(raiz.getDer());
+        }
+        switch (dato) {
+            case ".":
+                ArrayList<Integer> upos = raiz.getIzq().ultimaPos;
+                ArrayList<Integer> ppos = raiz.getDer().primeraPos;
+                for (int i = 0; i < upos.size(); i++){
+                    for (int j = 0; j < ppos.size(); j++){
+                        next[upos.get(i)].add(ppos.get(j));
+                    }
+                }
+                break;
+            case "+":
+                ArrayList<Integer> mppos = raiz.getIzq().primeraPos;
+                ArrayList<Integer> mupos = raiz.getIzq().ultimaPos;
+                for (int i = 0; i < mupos.size(); i++){
+                    for (int j = 0; j < mppos.size(); j++){
+                        next[mupos.get(i)].add(mppos.get(j));
+                    }
+                }
+                break;
+            case "*":
+                ArrayList<Integer> appos = raiz.getIzq().primeraPos;
+                ArrayList<Integer> aupos = raiz.getIzq().ultimaPos;
+                for (int i = 0; i < aupos.size(); i++){
+                    for (int j = 0; j < appos.size(); j++){
+                        next[aupos.get(i)].add(appos.get(j));
+                    }
+                }
+                break;
+        }
+    }
+
+    int posActual = 1;
+
+    private void primUltPosAnulAlfabeto(Nodo r) {
+        if (r != null) {
+            primUltPosAnulAlfabeto(r.getIzq());
+            primUltPosAnulAlfabeto(r.getDer());
+            if (alfabeto.contains(r.getDato()) || r.getDato().equals("#")) {
+                r.primeraPos.add(posActual++);
+                r.ultimaPos = r.primeraPos;
+                r.anulable = false;
             }
         }
     }
-    
+
+    private void imprimirPost2(Nodo r) {
+        if (r.getIzq() != null) {
+            imprimirPost(r.getIzq());
+        }
+        if (r.getDer() != null) {
+            imprimirPost(r.getDer());
+        }
+
+        System.out.print("Dato: " + r.getDato() + " ");
+        System.out.print("PPos: ");
+        System.out.print(r.primeraPos + " ");
+        System.out.print("UPos: ");
+        System.out.print(r.ultimaPos + " ");
+        System.out.print("Anul: ");
+        System.out.print(r.anulable + " ");
+        System.out.println("UPos");
+        System.out.println(r.ultimaPos);
+    }
+
+    private void imprimirPost(Nodo r) {
+        if (r != null) {
+            imprimirPost(r.getIzq());
+            imprimirPost(r.getDer());
+            System.out.print("Dato: " + r.getDato() + " ");
+            System.out.print("PPos: ");
+            System.out.print(r.primeraPos + " ");
+            System.out.print("UPos: ");
+            System.out.print(r.ultimaPos + " ");
+            System.out.print("Anul: ");
+            System.out.print(r.anulable + " ");
+            System.out.println("");
+        }
+    }
 }
